@@ -3,7 +3,13 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <h1>Список всех расходов</h1>
+          <slot name="language-selector"></slot>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12">
+          <h1>{{ $t('expensesList') }}</h1>
         </v-col>
       </v-row>
 
@@ -12,7 +18,7 @@
           <v-select
             v-model="filterCategory"
             :items="['all', ...categories]"
-            label="Фильтр по категории"
+            :label="$t('filterCategory')"
             outlined
             dense
           />
@@ -37,20 +43,20 @@
 
         <v-col cols="12" v-else>
           <v-alert type="info" border="left" colored-border>
-            Нет расходов для отображения.
+            {{ $t('noExpenses') }}
           </v-alert>
         </v-col>
       </v-row>
 
       <v-row>
         <v-col cols="12">
-          <h2>Итог: {{ totalAmount }} ₽</h2>
+          <h2>{{ $t('totalAmount') }}{{ totalAmount }} ₽</h2>
         </v-col>
       </v-row>
 
       <v-row>
         <v-col cols="12">
-          <router-link to="/add" class="router-link">Добавить расход</router-link>
+          <router-link to="/add" class="router-link">{{ $t('addExpense') }}</router-link>
         </v-col>
       </v-row>
     </v-container>
@@ -98,6 +104,7 @@ export default {
 
 <style scoped>
 v-btn {
+  margin-right: 10px;
   margin-top: 20px;
 }
 </style>

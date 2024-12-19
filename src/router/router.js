@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import ExpenseList from '@/components/ExpenseList.vue';
+import ExpenseList from '@/components/ListLayout.vue';
 import AddExpense from '@/components/AddExpense.vue';
 
 const routes = [
-  { path: '/', name: 'ExpenseList', component: ExpenseList },
+  { path: '/', name: 'ListLayout', component: ExpenseList },
   { path: '/add', name: 'AddExpense', component: AddExpense },
 ];
 

@@ -33,13 +33,14 @@ export default {
   },
   methods: {
     addExpense() {
-      const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
       const expense = {
         ...this.newExpense,
         id: Date.now(),
       };
-      expenses.push(expense);
-      localStorage.setItem('expenses', JSON.stringify(expenses));
+
+      this.$store.dispatch('addExpense', expense);
+      this.$store.dispatch('saveExpenses');
+
       this.newExpense = { category: '', amount: 0, description: '' };
       alert('Расход добавлен!');
       this.$router.push('/');
