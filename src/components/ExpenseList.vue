@@ -1,23 +1,60 @@
 <template>
-  <div>
-    <h1>Список всех расходов</h1>
-    <div>
-      <label for="filter">Фильтр по категории:</label>
-      <select v-model="filterCategory" id="filter">
-        <option value="all">Все</option>
-        <option v-for="category in categories" :key="category" :value="category">
-          {{ category }}
-        </option>
-      </select>
-    </div>
-    <ul>
-      <li v-for="expense in filteredExpenses" :key="expense.id">
-        <strong>{{ expense.category }}</strong>: {{ expense.amount }} ₽ - {{ expense.description }}
-      </li>
-    </ul>
-    <h2>Итог: {{ totalAmount }} ₽</h2>
-    <router-link to="/add">Добавить расход</router-link>
-  </div>
+  <v-app>
+    <v-container>
+      <v-row>
+        <v-col cols="12">
+          <h1>Список всех расходов</h1>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12" sm="6" md="4">
+          <v-select
+            v-model="filterCategory"
+            :items="['all', ...categories]"
+            label="Фильтр по категории"
+            outlined
+            dense
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12" v-if="filteredExpenses.length">
+          <v-list>
+            <v-list-item-group v-for="expense in filteredExpenses" :key="expense.id">
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <strong>{{ expense.category }}</strong>: {{ expense.amount }} ₽
+                  </v-list-item-title>
+                  <v-list-item-subtitle>{{ expense.description }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-col>
+
+        <v-col cols="12" v-else>
+          <v-alert type="info" border="left" colored-border>
+            Нет расходов для отображения.
+          </v-alert>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12">
+          <h2>Итог: {{ totalAmount }} ₽</h2>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12">
+          <router-link to="/add" class="router-link">Добавить расход</router-link>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -58,3 +95,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+v-btn {
+  margin-top: 20px;
+}
+</style>
